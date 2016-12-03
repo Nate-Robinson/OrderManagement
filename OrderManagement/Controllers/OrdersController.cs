@@ -9,22 +9,84 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using OrderManagement.Models;
+using System.Web.Script.Serialization;
+using System.Text;
 
 namespace OrderManagement.Controllers
 {
+    public static class Utity
+    {
+        public static HttpResponseMessage toJson(Object obj)
+        {
+            String str;
+            if (obj is String || obj is Char)
+            {
+                str = obj.ToString();
+            }
+            else
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                str = serializer.Serialize(obj);
+            }
+            HttpResponseMessage result = new HttpResponseMessage { Content = new StringContent(str, Encoding.GetEncoding("UTF-8"), "application/json") };
+            return result;
+        } 
+    }
+
     public class OrdersController : ApiController
     {
         private OrderManagementContext db = new OrderManagementContext();
 
         // GET: api/Orders
-        public List<Order> GetOrders()
+        //public List<Order> GetOrders()
+        //{
+        //    var orders = from o in db.Orders
+        //                 //where o
+        //                 select o;
+
+        //    return db.Orders.ToList();
+        //}
+
+        public HttpResponseMessage GetOrders(queryParam user)
         {
+            //var da = from u in db.Orders
+            //         select u;
+            //List<Order> data = da.ToList();
+            //var tempTotal = data.Count;
+            //var tempRows = data.Skip(user.offset).Take(user.limit).ToList();
+            //ResultData result =  new ResultData()
+            //{ 
+            //    total = tempTotal,
+            //    rows = tempRows 
+            //};
 
-            var orders = from o in db.Orders
-                         //where o
-                         select o;
+            OrderManagementContext db = new OrderManagementContext();
+            List<Order> data = db.Orders.Where(u => u.Id > 0).ToList();
 
-            return db.Orders.ToList();
+            var tempTotal = data.Count;
+            var tempRows = data.ToList();
+            ResultData result = new ResultData()
+            {
+                total = tempTotal,
+                rows = tempRows
+            };
+            return Utity.toJson(result);
+        }
+
+        public class ResultData
+        {
+            public int total { get; set; }
+            public List<Order> rows { get; set; }
+        }
+
+        public class queryParam
+        {
+            public int limit { get; set; }
+            public int offset { get; set; }
+            public string departmentname { get; set; }
+            public string status { get; set; }
+            public string sortName { get; set; }
+            public string sortOrder { get; set; }
         }
 
         // GET: api/Orders/5
