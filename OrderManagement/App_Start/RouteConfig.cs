@@ -19,11 +19,6 @@ namespace OrderManagement
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-                 name: "Order",
-                url: "{controller}/{action}",
-                defaults: new { controller = "Order", action = "Add" }
-                );
         }
     }
 }
