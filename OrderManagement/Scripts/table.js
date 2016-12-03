@@ -26,7 +26,7 @@ var TableInit = function () {
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_departments').bootstrapTable({
-            url: '/Home/GetOrder',         //请求后台的URL（*）
+            url: '/api/Orders',         //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -53,21 +53,62 @@ var TableInit = function () {
             columns: [{
                 checkbox: true
             }, {
+                field: 'Id',
+                title: '编号',
+                sortable: true,
+            }, {
+                field: 'Color',
+                title: '颜色',
+                sortable: true,
+            }, {
+                field: 'ShoeSize',
+                title: '鞋码',
+                sortable: true,
+            }, {
+                field: 'Qty',
+                title: '数量',
+                sortable: true,
+            }, {
                 field: 'Name',
-                title: '部门名称',
+                title: '客户名字',
                 sortable: true,
             }, {
-                field: 'ParentName',
-                title: '上级部门',
+                field: 'CellPhone',
+                title: '手机号',
                 sortable: true,
             }, {
-                field: 'Level',
-                title: '部门级别',
+                field: 'Adress',
+                title: '地址',
                 sortable: true,
             }, {
-                field: 'Desc',
-                title: '描述'
-            }, ]
+                field: 'CreateTime',
+                title: '下单时间',
+                sortable: true,
+            },{
+                field: 'TotalMoney',
+                title: '总价',
+                sortable: true,
+            }]
+
+      //      [Id]
+      //,[Color]
+      //      ,[ShoeSize]
+      //,[Qty]
+      //      ,[Name]
+      //,[CellPhone]
+      //      ,[Adress]
+      //,[TotalMoney]
+      //      ,[Message]
+      //,[CreateTime]
+      //      ,[LogisticsCompany]
+      //,[LogisticsCode]
+      //      ,[Status]
+      //,[Price]
+      //      ,[Province]
+      //,[City]
+      //      ,[District]
+      //,[CustomerIP]
+
         });
     };
 

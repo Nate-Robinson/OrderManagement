@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="64f29f89d2764b5ab2c94d0d5f24217b" Name="Diagram1" ZoomLevel="84">
-        <EntityTypeShape EntityType="qds206621140_dbModel.Order" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="1b2ca2a2ef414c2a82da6e777c22be2c" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="OrderManageDbModel.Order" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderManageDbModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

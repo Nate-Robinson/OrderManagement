@@ -49,7 +49,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-<Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -143,24 +143,27 @@
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Navbar.cs" />
-<Compile Include="Models\TestOrderModel.cs" />
     <Compile Include="Models\Order.cs">
-      <DependentUpon>OrderModel.tt</DependentUpon>
+      <DependentUpon>OrderManageModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderModel.Context.cs">
+    <Compile Include="Models\OrderManageModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrderModel.Context.tt</DependentUpon>
+      <DependentUpon>OrderManageModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderModel.cs">
+    <Compile Include="Models\OrderManageModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrderModel.tt</DependentUpon>
+      <DependentUpon>OrderManageModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderModel.Designer.cs">
+    <Compile Include="Models\OrderManageModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrderModel.edmx</DependentUpon>
+      <DependentUpon>OrderManageModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestOrderModel.cs" />
+    <Compile Include="Models\User.cs">
+      <DependentUpon>OrderManageModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1036,22 +1039,22 @@
     <Content Include="Content\less\mixins.less" />
     <Content Include="Content\less\sb-admin-2.less" />
     <Content Include="Content\less\variables.less" />
-    <EntityDeploy Include="Models\OrderModel.edmx">
+    <EntityDeploy Include="Models\OrderManageModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OrderModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>OrderManageModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\OrderModel.Context.tt">
+    <Content Include="Models\OrderManageModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrderModel.edmx</DependentUpon>
-      <LastGenOutput>OrderModel.Context.cs</LastGenOutput>
+      <DependentUpon>OrderManageModel.edmx</DependentUpon>
+      <LastGenOutput>OrderManageModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\OrderModel.edmx.diagram">
-      <DependentUpon>OrderModel.edmx</DependentUpon>
+    <Content Include="Models\OrderManageModel.edmx.diagram">
+      <DependentUpon>OrderManageModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\OrderModel.tt">
+    <Content Include="Models\OrderManageModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrderModel.edmx</DependentUpon>
-      <LastGenOutput>OrderModel.cs</LastGenOutput>
+      <DependentUpon>OrderManageModel.edmx</DependentUpon>
+      <LastGenOutput>OrderManageModel.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrapValidator.js" />

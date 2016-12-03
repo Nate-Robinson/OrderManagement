@@ -13,10 +13,10 @@ namespace OrderManagement.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OrderManagementContext : DbContext
+    public partial class OrderManageDbContext : DbContext
     {
-        public OrderManagementContext()
-            : base("name=qds206621140_dbEntities")
+        public OrderManageDbContext()
+            : base("name=OrderManageDbContext")
         {
         }
     
@@ -26,5 +26,6 @@ namespace OrderManagement.Models
         }
     
         public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

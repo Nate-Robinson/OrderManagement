@@ -35,7 +35,7 @@ namespace OrderManagement.Controllers
 
     public class OrdersController : ApiController
     {
-        private OrderManagementContext db = new OrderManagementContext();
+        private OrderManageDbContext db = new OrderManageDbContext();
 
         // GET: api/Orders
         //public List<Order> GetOrders()
@@ -60,7 +60,7 @@ namespace OrderManagement.Controllers
             //    rows = tempRows 
             //};
 
-            OrderManagementContext db = new OrderManagementContext();
+            OrderManageDbContext db = new OrderManageDbContext();
             List<Order> data = db.Orders.Where(u => u.Id > 0).ToList();
 
             var tempTotal = data.Count;
