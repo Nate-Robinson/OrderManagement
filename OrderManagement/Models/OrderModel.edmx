@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="qds206621140_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“qds206621140_db.dbo.Order”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Color" />
+            <PropertyRef Name="ShoeSize" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="CellPhone" />
+            <PropertyRef Name="Adress" />
+            <PropertyRef Name="TotalMoney" />
+            <PropertyRef Name="CreateTime" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Province" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="District" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Color" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ShoeSize" Type="float" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CellPhone" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TotalMoney" Type="float" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="400" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="LogisticsCompany" Type="nvarchar" MaxLength="50" />
+          <Property Name="LogisticsCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Province" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="District" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CustomerIP" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityContainer Name="qds206621140_dbModelStoreContainer">
+          <EntitySet Name="Order" EntityType="Self.Order" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Order].[Id] AS [Id], 
+[Order].[Color] AS [Color], 
+[Order].[ShoeSize] AS [ShoeSize], 
+[Order].[Qty] AS [Qty], 
+[Order].[Name] AS [Name], 
+[Order].[CellPhone] AS [CellPhone], 
+[Order].[Adress] AS [Adress], 
+[Order].[TotalMoney] AS [TotalMoney], 
+[Order].[Message] AS [Message], 
+[Order].[CreateTime] AS [CreateTime], 
+[Order].[LogisticsCompany] AS [LogisticsCompany], 
+[Order].[LogisticsCode] AS [LogisticsCode], 
+[Order].[Status] AS [Status], 
+[Order].[Price] AS [Price], 
+[Order].[Province] AS [Province], 
+[Order].[City] AS [City], 
+[Order].[District] AS [District], 
+[Order].[CustomerIP] AS [CustomerIP]
+FROM [dbo].[Order] AS [Order]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="qds206621140_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Color" />
+            <PropertyRef Name="ShoeSize" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="CellPhone" />
+            <PropertyRef Name="Adress" />
+            <PropertyRef Name="TotalMoney" />
+            <PropertyRef Name="CreateTime" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Province" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="District" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ShoeSize" Type="Double" Nullable="false" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CellPhone" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TotalMoney" Type="Double" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LogisticsCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LogisticsCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Province" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="District" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerIP" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="qds206621140_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="qds206621140_dbModelStoreContainer" CdmEntityContainer="qds206621140_dbEntities">
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="qds206621140_dbModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="ShoeSize" ColumnName="ShoeSize" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="LogisticsCompany" ColumnName="LogisticsCompany" />
+                <ScalarProperty Name="LogisticsCode" ColumnName="LogisticsCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="CustomerIP" ColumnName="CustomerIP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
