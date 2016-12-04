@@ -15,7 +15,7 @@
           <Property Name="Qty" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CellPhone" Type="char" MaxLength="11" Nullable="false" />
-          <Property Name="Adress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="TotalMoney" Type="float" Nullable="false" />
           <Property Name="Message" Type="nvarchar" MaxLength="400" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
@@ -56,13 +56,13 @@
           <Property Name="Qty" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CellPhone" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TotalMoney" Type="Double" Nullable="false" />
           <Property Name="Message" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LogisticsCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LogisticsCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" Unicode="false" FixedLength="true" />
           <Property Name="Price" Type="Double" />
           <Property Name="Province" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
@@ -97,7 +97,7 @@
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
-                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />

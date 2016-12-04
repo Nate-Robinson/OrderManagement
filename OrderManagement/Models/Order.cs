@@ -20,7 +20,7 @@ namespace OrderManagement.Models
         public int Qty { get; set; }
         public string Name { get; set; }
         public string CellPhone { get; set; }
-        public string Adress { get; set; }
+        public string Address { get; set; }
         public double TotalMoney { get; set; }
         public string Message { get; set; }
         public System.DateTime CreateTime { get; set; }
