@@ -38,6 +38,8 @@ namespace OrderManagement.Controllers
     {
         private OrderManageDbContext db = new OrderManageDbContext();
 
+        private const float ShoePrice = 199;
+
         // GET: api/Orders
         //public List<Order> GetOrders()
         //{
@@ -158,17 +160,35 @@ namespace OrderManagement.Controllers
 
         // POST: api/Orders
         [ResponseType(typeof(Order))]
-        public IHttpActionResult PostOrder(Order order)
+        public HttpResponseMessage PostOrder(Order order)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
+          
+            order.Address = order.Province + order.City + order.District + order.Address;
+            order.CustomerIP = GetIP4Address();   
+            order.Price = ShoePrice;
+            order.Status = ((int)OrderStatus.WaitForConfirm).ToString();
+            order.CreateTime = DateTime.Now;
             db.Orders.Add(order);
-            db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
+            try
+            {
+                db.SaveChanges();
+                HttpResponseMessage response = Utity.toJson(order);
+                response.Headers.Add("Access-Control-Allow-Origin", "*");
+                response.Headers.Add("Access-Control-Allow-Methods", "POST");
+                response.Headers.Add("Access-Control-Allow-Headers", "x-requested-with,content-type");
+                return response;
+            }
+
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
         }
 
         // DELETE: api/Orders/5
@@ -200,5 +220,35 @@ namespace OrderManagement.Controllers
         {
             return db.Orders.Count(e => e.Id == id) > 0;
         }
+
+        public static string GetIP4Address()
+        {
+            string IP4Address = String.Empty;
+
+            foreach (IPAddress IPA in Dns.GetHostAddresses(HttpContext.Current.Request.UserHostAddress))
+            {
+                if (IPA.AddressFamily.ToString() == "InterNetwork")
+                {
+                    IP4Address = IPA.ToString();
+                    break;
+                }
+            }
+
+            if (IP4Address != String.Empty)
+            {
+                return IP4Address;
+            }
+
+            foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
+            {
+                if (IPA.AddressFamily.ToString() == "InterNetwork")
+                {
+                    IP4Address = IPA.ToString();
+                    break;
+                }
+            }
+
+            return IP4Address;
+        }
     }
 }

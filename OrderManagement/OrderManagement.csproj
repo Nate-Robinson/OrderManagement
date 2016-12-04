@@ -161,6 +161,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrderManageModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\TestOrderModel.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>OrderManageModel.tt</DependentUpon>
@@ -1061,6 +1062,7 @@
       <DependentUpon>OrderManageModel.edmx</DependentUpon>
       <LastGenOutput>OrderManageModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\config.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrapValidator.js" />
     <Content Include="Scripts\bootstrapValidator.min.js" />

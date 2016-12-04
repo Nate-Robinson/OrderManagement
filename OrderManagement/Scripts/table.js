@@ -112,7 +112,7 @@ var TableInit = function () {
                 sortable: true,
                 valign: 'middle',
             }, {
-                field: 'Adress',
+                field: 'Address',
                 title: oTableInit.fieldName['Adress'],
                 sortable: true,
             }, {
