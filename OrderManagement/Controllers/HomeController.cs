@@ -85,22 +85,33 @@ namespace OrderManagement.Controllers
 		public string sortOrder{get;set;}
 	}
 
+        /// <summary>
+        /// 用于渲染订单页面
+        /// </summary>
+        /// <param name="queryParams"></param>
+        /// <returns></returns>
         public JsonResult GetOrder(queryParam queryParams)
         {
-            var lstRes = new List<TestOrderModel>();
-            for (var i = 0; i < 50; i++)
-            {
-                var oModel = new TestOrderModel();
-                oModel.ID = Guid.NewGuid().ToString();
-                oModel.Name = "销售部" + i;
-                oModel.Level = i.ToString();
-                oModel.Desc = "暂无描述信息";
-                lstRes.Add(oModel);
-            }
-
-            var total = lstRes.Count;
-            var rows = lstRes.Skip(queryParams.offset).Take(queryParams.limit).ToList();
+            OrderManageDbContext db = new OrderManageDbContext();
+            List<Order> data = db.Orders.Where(u => u.Id > 0).ToList();
+            var total = data.Count;
+            var rows = data.Skip(queryParams.offset).Take(queryParams.limit).ToList();
             return Json(new { total = total, rows = rows }, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 用于渲染账户管理页面
+        /// </summary>
+        /// <param name="queryParams"></param>
+        /// <returns></returns>
+        public JsonResult GetUserInfo(queryParam queryParams)
+        {
+            OrderManageDbContext db = new OrderManageDbContext();
+            List<User> data = db.Users.Where(u => u.Id > 0).ToList();
+            //var total = data.Count;
+           // var rows = data.Skip(queryParams.offset).Take(queryParams.limit).ToList();
+            return Json(data.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

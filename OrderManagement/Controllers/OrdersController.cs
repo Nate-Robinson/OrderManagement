@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using OrderManagement.Models;
 using System.Web.Script.Serialization;
 using System.Text;
+using System.Web;
 
 namespace OrderManagement.Controllers
 {
@@ -46,31 +47,49 @@ namespace OrderManagement.Controllers
 
         //    return db.Orders.ToList();
         //}
-
-        public HttpResponseMessage GetOrders(queryParam user)
+        /// <summary>
+        /// 检查IP地址格式
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public static bool IsIP(string ip)
         {
-            //var da = from u in db.Orders
-            //         select u;
-            //List<Order> data = da.ToList();
-            //var tempTotal = data.Count;
-            //var tempRows = data.Skip(user.offset).Take(user.limit).ToList();
-            //ResultData result =  new ResultData()
-            //{ 
-            //    total = tempTotal,
-            //    rows = tempRows 
-            //};
+            return System.Text.RegularExpressions.Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
+        }
+        /// <summary>
+        /// 订单列表获取数据
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public HttpResponseMessage GetOrders()
+        {
+            string userHostAddress = HttpContext.Current.Request.UserHostAddress;
 
-            OrderManageDbContext db = new OrderManageDbContext();
-            List<Order> data = db.Orders.Where(u => u.Id > 0).ToList();
-
-            var tempTotal = data.Count;
-            var tempRows = data.ToList();
-            ResultData result = new ResultData()
+            if (string.IsNullOrEmpty(userHostAddress))
             {
-                total = tempTotal,
-                rows = tempRows
-            };
-            return Utity.toJson(result);
+                userHostAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+
+            //最后判断获取是否成功，并检查IP地址的格式（检查其格式非常重要）
+            if (!string.IsNullOrEmpty(userHostAddress) && IsIP(userHostAddress))
+            {
+                return Utity.toJson(userHostAddress);
+            }
+            return Utity.toJson("");
+
+            //OrderManageDbContext db = new OrderManageDbContext();
+            //List<Order> data = db.Orders.Where(u => u.Id > 0).ToList();
+
+            //var tempTotal = data.Count;
+
+            //// 分页查询
+            //var tempRows = data.Skip(offset).Take(limit).ToList();
+            //ResultData result = new ResultData()
+            //{
+            //    total = tempTotal,
+            //    rows = tempRows
+            //};
+            //return Utity.toJson(result);
         }
 
         public class ResultData
@@ -79,7 +98,7 @@ namespace OrderManagement.Controllers
             public List<Order> rows { get; set; }
         }
 
-        public class queryParam
+        public class QueryParam
         {
             public int limit { get; set; }
             public int offset { get; set; }

@@ -296,6 +296,11 @@
     <Content Include="bower_components\bootstrap-table\locale\bootstrap-table-zh-CN.min.js" />
     <Content Include="bower_components\bootstrap-table\locale\bootstrap-table-zh-TW.js" />
     <Content Include="bower_components\bootstrap-table\locale\bootstrap-table-zh-TW.min.js" />
+    <Content Include="bower_components\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="bower_components\bootstrap3-editable\img\clear.png" />
+    <Content Include="bower_components\bootstrap3-editable\img\loading.gif" />
+    <Content Include="bower_components\bootstrap3-editable\js\bootstrap-editable.js" />
+    <Content Include="bower_components\bootstrap3-editable\js\bootstrap-editable.min.js" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap.css" />
@@ -1072,7 +1077,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
+    <Content Include="Scripts\table - 复制.js" />
     <Content Include="Scripts\table.js" />
+    <Content Include="Scripts\userInfo.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\_references.js" />

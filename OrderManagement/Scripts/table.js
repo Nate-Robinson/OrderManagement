@@ -1,4 +1,5 @@
 ﻿
+// 1. 页面初始化
 $(function () {
 
     //1.初始化Table
@@ -8,119 +9,232 @@ $(function () {
     //2.初始化Button的点击事件
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
-
 });
 
-(function (i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-        (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date(); a = s.createElement(o),
-m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-ga('create', 'UA-36708951-1', 'wenzhixin.net.cn');
-ga('send', 'pageview');
+
 
 
 var TableInit = function () {
     var oTableInit = new Object();
+
+    oTableInit.fieldName = {
+        Id : "订单号",
+        Color: "颜色",
+        ShoeSize: "鞋码",
+        Qty: "数量",
+        Name: "姓名",
+        CellPhone: "电话",
+        Adress: "地址",
+        TotalMoney: "总价",
+        Message: "买家留言",
+        CreateTime: "下单时间",
+        LogisticsCompany: "物流公司",
+        LogisticsCode: "物流单号",
+        Price: "单价",
+        Province: "省份",
+        City: "城市",
+        District: "地区",
+        CustomerIP: "IP",
+        Status: "订单状态"
+    }
+
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_departments').bootstrapTable({
-            url: '/api/Orders',         //请求后台的URL（*）
+            url: '/Home/GetOrder',              //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
             pagination: true,                   //是否显示分页（*）
-            //sortable: true,                     //是否启用排序
-            //sortOrder: "asc",                   //排序方式
+            //sortable: true,                   //是否启用排序
+            //sortOrder: "asc",                 //排序方式
             queryParams: oTableInit.queryParams,//传递参数（*）
             sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageNumber: 1,                      //初始化加载第一页，默认第一页
             pageSize: 10,                       //每页的记录行数（*）
             pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-            strictSearch: true,
+            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,                     
             showColumns: true,                  //是否显示所有的列
             showRefresh: true,                  //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
-            height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-            uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
-            showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+            height: 600,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "Id",                     //每一行的唯一标识，一般为主键列
+            showToggle: true,                  //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
-            detailView: false,                   //是否显示父子表
+            detailView: false,                  //是否显示父子表
             columns: [{
-                checkbox: true
+                checkbox: true,
+                align: 'center',
+                valign: 'middle',
             }, {
                 field: 'Id',
-                title: '编号',
-                sortable: true,
+                title: oTableInit.fieldName['Id'],
+                sortable: true,                       // 不排序的话设置固定高度则行宽度对不齐 
+                align: 'center',
+                valign: 'middle',
             }, {
                 field: 'Color',
-                title: '颜色',
+                title: oTableInit.fieldName['Color'],
+                align: 'center',
+                valign: 'middle',
                 sortable: true,
+                // visible: false   // 控制当前列是否显示
             }, {
                 field: 'ShoeSize',
-                title: '鞋码',
+                title: oTableInit.fieldName['ShoeSize'],
+                align: 'center',
+                valign: 'middle',
                 sortable: true,
             }, {
                 field: 'Qty',
-                title: '数量',
+                title: oTableInit.fieldName['Qty'],
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+            }, {
+                field: 'TotalMoney',
+                title: oTableInit.fieldName['TotalMoney'],
+                align: 'center',
+                valign: 'middle',
                 sortable: true,
             }, {
                 field: 'Name',
-                title: '客户名字',
+                title: oTableInit.fieldName['Name'],
                 sortable: true,
+                align: 'center',
+                valign: 'middle',
             }, {
                 field: 'CellPhone',
-                title: '手机号',
+                title: oTableInit.fieldName['CellPhone'],
                 sortable: true,
+                valign: 'middle',
             }, {
                 field: 'Adress',
-                title: '地址',
+                title: oTableInit.fieldName['Adress'],
                 sortable: true,
             }, {
+                field: 'Status',
+                title: oTableInit.fieldName['Status'],
+                sortable: true,
+                align: 'center',
+                valign: 'middle',
+                editable: {
+                    type: 'select',
+                    title: oTableInit.fieldName['Status'],
+                    source: [
+                        { value: "1", text: "等待确认" },
+                        { value: "2", text: "确认假单" },
+                        { value: "3", text: "等待发货" },
+                        { value: "4", text: "已经发货" },
+                        { value: "5", text: "已经签收" },
+                        { value: "6", text: "已经退货" }
+                    ]
+                }
+            }, {
                 field: 'CreateTime',
-                title: '下单时间',
+                title: oTableInit.fieldName['CreateTime'],
                 sortable: true,
-            },{
-                field: 'TotalMoney',
-                title: '总价',
+            }, {
+                field: 'LogisticsCompany',
+                title: oTableInit.fieldName['LogisticsCompany'],
                 sortable: true,
-            }]
+            }, {
+                field: 'LogisticsCode',
+                title: oTableInit.fieldName['LogisticsCode'],
+                sortable: true,
+            }, {
+                field: 'CustomerIP',
+                title: oTableInit.fieldName['CustomerIP'],
+                sortable: true,
+                visible: false,
+            }, {
+                field: 'operate',
+                title: '操作',
+                width: 80,
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: operateFormatter,
+                events: operateEvents
+            }],
+            onEditableSave: function (field, row, oldValue, $el) {
+                $.ajax({
+                    type: "post",
+                    url: "/Home/GetOrder",
+                    data: row,
+                    dataType: 'JSON',
+                    success: function (data, status) {
+                        if (status == "success") {
+                            alert('提交数据成功');
+                        }
+                    },
+                    error: function () {
+                        alert('编辑失败');
+                    },
+                    complete: function () {
 
-      //      [Id]
-      //,[Color]
-      //      ,[ShoeSize]
-      //,[Qty]
-      //      ,[Name]
-      //,[CellPhone]
-      //      ,[Adress]
-      //,[TotalMoney]
-      //      ,[Message]
-      //,[CreateTime]
-      //      ,[LogisticsCompany]
-      //,[LogisticsCode]
-      //      ,[Status]
-      //,[Price]
-      //      ,[Province]
-      //,[City]
-      //      ,[District]
-      //,[CustomerIP]
+                    }
 
+                });
+            }
         });
     };
 
+    function operateFormatter(value, row, index) {
+        return [
+                            '<a class="edit btn btn-xs btn-default" style="margin-left:5px" href="javascript:void(0)" title="编辑">',
+                                '<i class="fa fa-pencil"></i>',
+                            '</a>',
+                            '<a class="remove btn btn-xs btn-default" style="margin-left:5px" href="javascript:void(0)" title="删除">',
+                                '<i class="fa fa-trash-o"></i>',
+                            '</a>'
+        ].join('');
+    }
+
+    window.operateEvents = {
+        //'click .like': function (e, value, row, index) {
+        //    alert(row.id);
+        //},
+        'click .edit': function (e, value, row, index) {
+            if (row == null || typeof row == 'undefine')
+            {
+                alert("不能获取选中行，请重新选择！")
+            }
+            var joinStr = "";
+            $.each(row, function (key,value) {
+                if (key != "0") {
+                    joinStr +=
+                       ['<div class="form-group">',
+                                '<label for="txt_', key, '">', oTableInit.fieldName[key], '</label>',
+                                '<input type="text" name="txt_',key, '" class="form-control" id="txt_' + key, '" placeholder="',value,'">',
+                        ' </div>'].join('');
+                }
+            });
+            $("#appendModel")[0].innerHTML = joinStr;
+            $('#popupModal').modal();
+        },
+        'click .remove': function (e, value, row, index) {
+            mif.showQueryMessageBox("将删除本条记录，是否确认删除？", function () {
+                var url = '@Url.Content("~/Welcome/DeleteRecord/")' + row.id + '?rnd=' + Math.random();
+                mif.ajax(url, null, afterDelete);
+            });
+        }
+    };
+
+
     //得到查询的参数
     oTableInit.queryParams = function (params) {
-        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-            limit: params.limit,   //页面大小
-            offset: params.offset,     //页码
-            departmentname: $("#txt_search_departmentname").val(),   //搜索的名字
-            status: $("#txt_search_statu").val(),     // 搜索的状态
-            sortName: params.sort,                    // 排序的字段
-            sortOrder: params.order                   // 排序的方式
+        var temp = {
+            //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            limit: params.limit,                                      // 页面大小
+            offset: params.offset,                                    // 页码
+            departmentname: $("#txt_search_departmentname").val(),    // 搜索的名字
+            status: $("#txt_search_statu").val(),                     // 搜索的状态
+            sortName: params.sort,                                    // 排序的字段
+            sortOrder: params.order                                   // 排序的方式
         };
         return temp;
     };

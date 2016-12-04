@@ -21,7 +21,7 @@ body {
 @media(min-width:768px) {
     #page-wrapper {
         position: inherit;
-        margin: 0 0 0 250px;
+        margin: 0 0 0 130px;  /*这是包住导航边框*/ 
         padding: 0 30px;
         border-left: 1px solid #e7e7e7;
     }
@@ -131,7 +131,7 @@ body {
     .sidebar {
         z-index: 1;
         position: absolute;
-        width: 250px;
+        width: 130px;    /*这是导航边宽*/
         margin-top: 51px;
     }
 
