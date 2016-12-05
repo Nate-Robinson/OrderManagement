@@ -167,14 +167,14 @@ namespace OrderManagement.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
-            order.Id = db.GenerateOrderId();
+            order.Id = db.GenerateOrderId().FirstOrDefault();
             order.Address = order.Province + order.City + order.District + order.Address;
             order.CustomerIP = GetIP4Address();   
             order.Price = ShoePrice;
             order.Status = ((int)OrderStatus.WaitForConfirm).ToString();
             order.CreateTime = DateTime.Now;
             db.Orders.Add(order);
-
+            
             try
             {
                 db.SaveChanges();

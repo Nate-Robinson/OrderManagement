@@ -18,5 +18,7 @@ namespace OrderManagement.Models
         public string UserName { get; set; }
         public string PassWord { get; set; }
         public int UserLevel { get; set; }
+        public string Account { get; set; }
+        public string Remark { get; set; }
     }
 }

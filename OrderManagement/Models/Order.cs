@@ -32,5 +32,6 @@ namespace OrderManagement.Models
         public string City { get; set; }
         public string District { get; set; }
         public string CustomerIP { get; set; }
+        public string Remark { get; set; }
     }
 }

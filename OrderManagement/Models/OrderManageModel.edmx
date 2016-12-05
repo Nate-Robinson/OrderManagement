@@ -27,15 +27,18 @@
           <Property Name="City" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="District" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="CustomerIP" Type="char" MaxLength="15" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="400" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="nchar" MaxLength="20" />
           <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="PassWord" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="UserLevel" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="40" />
         </EntityType>
         <Function Name="GenerateOrderId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="OrderManageDbModelStoreContainer">
@@ -68,6 +71,7 @@
           <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="District" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CustomerIP" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -77,6 +81,8 @@
           <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PassWord" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="UserLevel" Type="Int32" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="OrderManageDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -92,6 +98,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="OrderManageDbModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="ShoeSize" ColumnName="ShoeSize" />
@@ -116,6 +123,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="OrderManageDbModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PassWord" ColumnName="PassWord" />

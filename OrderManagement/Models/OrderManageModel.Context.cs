@@ -31,10 +31,9 @@ namespace OrderManagement.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
     
-        public virtual string GenerateOrderId()
+        public virtual ObjectResult<string> GenerateOrderId()
         {
-            ObjectResult<string> result =((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GenerateOrderId");
-            return result.FirstOrDefault();
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GenerateOrderId");
         }
     }
 }
