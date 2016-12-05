@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OrderManageDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OrderManageDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="char" MaxLength="13" Nullable="false" />
           <Property Name="Color" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="ShoeSize" Type="float" Nullable="false" />
           <Property Name="Qty" Type="int" Nullable="false" />
@@ -21,7 +21,7 @@
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="LogisticsCompany" Type="nvarchar" MaxLength="50" />
           <Property Name="LogisticsCode" Type="nvarchar" MaxLength="50" />
-          <Property Name="Status" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Status" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Price" Type="float" />
           <Property Name="Province" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="City" Type="nvarchar" MaxLength="15" Nullable="false" />
@@ -37,12 +37,12 @@
           <Property Name="PassWord" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="UserLevel" Type="int" Nullable="false" />
         </EntityType>
+        <Function Name="GenerateOrderId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="OrderManageDbModelStoreContainer">
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OrderManageDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -50,7 +50,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="13" Unicode="false" FixedLength="true"  />
           <Property Name="Color" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="ShoeSize" Type="Double" Nullable="false" />
           <Property Name="Qty" Type="Int32" Nullable="false" />
@@ -62,7 +62,7 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LogisticsCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LogisticsCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" Nullable="false" Unicode="false" FixedLength="true" />
+          <Property Name="Status" Type="String" Nullable="false" Unicode="false" FixedLength="true" MaxLength="1" />
           <Property Name="Price" Type="Double" />
           <Property Name="Province" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
@@ -81,6 +81,7 @@
         <EntityContainer Name="OrderManageDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <FunctionImport Name="GenerateOrderId" ReturnType="Collection(String)" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -122,6 +123,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GenerateOrderId" FunctionName="OrderManageDbModel.Store.GenerateOrderId" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

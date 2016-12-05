@@ -12,6 +12,9 @@ namespace OrderManagement.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Objects;
+    using System.Data.Objects.DataClasses;
+    using System.Linq;
     
     public partial class OrderManageDbContext : DbContext
     {
@@ -27,5 +30,11 @@ namespace OrderManagement.Models
     
         public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
+    
+        public virtual string GenerateOrderId()
+        {
+            ObjectResult<string> result =((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GenerateOrderId");
+            return result.FirstOrDefault();
+        }
     }
 }

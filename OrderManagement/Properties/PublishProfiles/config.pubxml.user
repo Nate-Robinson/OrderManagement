@@ -22,7 +22,7 @@
       <publishTime>11/30/2016 21:23:59</publishTime>
     </File>
     <File Include="bin/sb-admin-2.Web.dll">
-      <publishTime>12/04/2016 22:24:18</publishTime>
+      <publishTime>12/05/2016 19:59:10</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>12/01/2016 19:30:35</publishTime>
@@ -827,6 +827,21 @@
     </File>
     <File Include="bower_components/bootstrap/README.md">
       <publishTime>11/30/2016 21:13:12</publishTime>
+    </File>
+    <File Include="bower_components/bootstrap3-editable/css/bootstrap-editable.css">
+      <publishTime>12/04/2016 23:49:15</publishTime>
+    </File>
+    <File Include="bower_components/bootstrap3-editable/img/clear.png">
+      <publishTime>12/04/2016 23:49:15</publishTime>
+    </File>
+    <File Include="bower_components/bootstrap3-editable/img/loading.gif">
+      <publishTime>12/04/2016 23:49:15</publishTime>
+    </File>
+    <File Include="bower_components/bootstrap3-editable/js/bootstrap-editable.js">
+      <publishTime>12/04/2016 23:49:15</publishTime>
+    </File>
+    <File Include="bower_components/bootstrap3-editable/js/bootstrap-editable.min.js">
+      <publishTime>12/04/2016 23:49:15</publishTime>
     </File>
     <File Include="bower_components/datatables-plugins/.bower.json">
       <publishTime>11/30/2016 21:13:13</publishTime>
@@ -2662,7 +2677,7 @@
       <publishTime>11/30/2016 21:13:14</publishTime>
     </File>
     <File Include="Content/sb-admin-2.css">
-      <publishTime>11/30/2016 21:13:14</publishTime>
+      <publishTime>12/04/2016 23:49:14</publishTime>
     </File>
     <File Include="Content/timeline.css">
       <publishTime>11/30/2016 21:13:14</publishTime>
@@ -2686,10 +2701,10 @@
       <publishTime>11/30/2016 21:13:14</publishTime>
     </File>
     <File Include="Models/OrderManageModel.edmx.diagram">
-      <publishTime>12/04/2016 21:33:04</publishTime>
+      <publishTime>12/05/2016 19:47:03</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>12/02/2016 23:45:04</publishTime>
+      <publishTime>12/05/2016 13:34:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>11/30/2016 21:13:14</publishTime>
@@ -2743,7 +2758,10 @@
       <publishTime>12/04/2016 01:12:13</publishTime>
     </File>
     <File Include="Scripts/table.js">
-      <publishTime>12/04/2016 15:55:21</publishTime>
+      <publishTime>12/04/2016 23:49:15</publishTime>
+    </File>
+    <File Include="Scripts/userInfo.js">
+      <publishTime>12/04/2016 23:49:15</publishTime>
     </File>
     <File Include="Scripts/vue.js">
       <publishTime>12/04/2016 01:12:13</publishTime>
@@ -2752,7 +2770,7 @@
       <publishTime>12/04/2016 01:12:13</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>12/04/2016 01:12:12</publishTime>
+      <publishTime>12/05/2016 15:25:59</publishTime>
     </File>
     <File Include="Views/Home/Blank.cshtml">
       <publishTime>11/30/2016 21:13:14</publishTime>
@@ -2773,7 +2791,7 @@
       <publishTime>11/30/2016 21:13:14</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/04/2016 01:12:13</publishTime>
+      <publishTime>12/04/2016 23:49:15</publishTime>
     </File>
     <File Include="Views/Home/Login.cshtml">
       <publishTime>12/04/2016 01:12:13</publishTime>
@@ -2788,13 +2806,13 @@
       <publishTime>11/30/2016 21:13:14</publishTime>
     </File>
     <File Include="Views/Home/Tables.cshtml">
-      <publishTime>11/30/2016 21:13:14</publishTime>
+      <publishTime>12/04/2016 23:49:15</publishTime>
     </File>
     <File Include="Views/Home/Typography.cshtml">
       <publishTime>11/30/2016 21:13:14</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>12/04/2016 01:12:14</publishTime>
+      <publishTime>12/04/2016 23:49:15</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>11/30/2016 21:13:14</publishTime>
@@ -2812,7 +2830,7 @@
       <publishTime>11/30/2016 21:13:14</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/04/2016 22:21:37</publishTime>
+      <publishTime>12/05/2016 19:58:38</publishTime>
     </File>
   </ItemGroup>
 </Project>

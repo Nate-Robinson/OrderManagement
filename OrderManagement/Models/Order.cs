@@ -14,7 +14,7 @@ namespace OrderManagement.Models
     
     public partial class Order
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Color { get; set; }
         public double ShoeSize { get; set; }
         public int Qty { get; set; }

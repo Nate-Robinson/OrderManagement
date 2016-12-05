@@ -93,7 +93,7 @@ namespace OrderManagement.Controllers
         public JsonResult GetOrder(queryParam queryParams)
         {
             OrderManageDbContext db = new OrderManageDbContext();
-            List<Order> data = db.Orders.Where(u => u.Id > 0).ToList();
+            List<Order> data = db.Orders.ToList();
             var total = data.Count;
             var rows = data.Skip(queryParams.offset).Take(queryParams.limit).ToList();
             return Json(new { total = total, rows = rows }, JsonRequestBehavior.AllowGet);

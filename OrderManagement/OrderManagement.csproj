@@ -1079,7 +1079,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
-    <Content Include="Scripts\table - 复制.js" />
     <Content Include="Scripts\table.js" />
     <Content Include="Scripts\userInfo.js" />
     <Content Include="Scripts\vue.js" />

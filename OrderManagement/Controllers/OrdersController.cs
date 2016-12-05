@@ -125,7 +125,7 @@ namespace OrderManagement.Controllers
 
         // PUT: api/Orders/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutOrder(int id, Order order)
+        public IHttpActionResult PutOrder(string id, Order order)
         {
             if (!ModelState.IsValid)
             {
@@ -167,7 +167,7 @@ namespace OrderManagement.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
-          
+            order.Id = db.GenerateOrderId();
             order.Address = order.Province + order.City + order.District + order.Address;
             order.CustomerIP = GetIP4Address();   
             order.Price = ShoePrice;
@@ -216,7 +216,7 @@ namespace OrderManagement.Controllers
             base.Dispose(disposing);
         }
 
-        private bool OrderExists(int id)
+        private bool OrderExists(string id)
         {
             return db.Orders.Count(e => e.Id == id) > 0;
         }
@@ -249,6 +249,7 @@ namespace OrderManagement.Controllers
             }
 
             return IP4Address;
-        }
+        }
+
     }
 }
