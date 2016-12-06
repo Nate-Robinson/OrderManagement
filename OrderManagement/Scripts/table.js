@@ -258,16 +258,15 @@ var TableInit = function () {
             }
             var joinStr = "";
             $.each(row, function (key, value) {
-                if (key == "0" || key == "Province" || key == "City" || key == "District" || key == "Status") {
+                if (key == "0" || key == "Province" || key == "City" || key == "District" || key == "Status") {              
                 } else {
                     joinStr +=
                        ['<div class="form-group">',
                                 '<label for="txt_', key, '">', dataBind.fieldName[key], '</label>',
-                                '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="'].join('');// , value, '"'].join('');
+                                '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="', value,'"'].join('');// , value, '"'].join('');
 
                     //joinStr += (key == "Status" ? (dataBind.StatusName[value] + '" value="' + dataBind.StatusName[value] + '"') : (value + '" value="' + value + '"'));
                     joinStr += (key == "CreateTime" ? (changeDateFormat(value)) : (value)) + '"';
-
                     joinStr += ((key == "Id" || key == "CreateTime" || key == "CustomerIP") ? "disabled" : "") + '>  </div>';
                         //' </div>'].join('');
                 }
@@ -368,14 +367,6 @@ var ButtonInit = function () {
         });
 
         $("#btn_submit").click(function () {
-            //postdata.DEPARTMENT_NAME = $("#txt_departmentname").val();
-            //postdata.PARENT_ID = $("#txt_parentdepartment").val();
-            //postdata.DEPARTMENT_LEVEL = $("#txt_departmentlevel").val();
-            //postdata.STATUS = $("#txt_statu").val();
-
-
-            //oTableInit.fieldName[""]
-
             $.each(dataBind.fieldName, function (key, value) {
                 postdata[key] = $("#txt_" + key).val();
             });
