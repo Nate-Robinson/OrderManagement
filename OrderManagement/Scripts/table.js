@@ -172,6 +172,7 @@ var TableInit = function () {
                 field: 'CreateTime',
                 title: dataBind.fieldName['CreateTime'],
                 sortable: true,
+                formatter: changeDateFormat
             }, {
                 field: 'LogisticsCompany',
                 title: dataBind.fieldName['LogisticsCompany'],
@@ -223,6 +224,18 @@ var TableInit = function () {
         });
     };
 
+    function changeDateFormat(cellval) {
+        if (cellval != null) {
+            var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+            var min = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+            var sec = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+            return date.getFullYear() + "-" + month + "-" + currentDate + " " + hour + ":" + min + ":" + sec;
+        }
+    }
+
     function operateFormatter(value, row, index) {
         return [
                             '<a class="edit btn btn-xs btn-default" style="margin-left:5px" href="javascript:void(0)" title="编辑">',
@@ -245,7 +258,7 @@ var TableInit = function () {
             }
             var joinStr = "";
             $.each(row, function (key, value) {
-                if (key == "0" || key == "Province" || key == "City" || key == "District") {
+                if (key == "0" || key == "Province" || key == "City" || key == "District" || key == "Status") {
                 } else {
                     joinStr +=
                        ['<div class="form-group">',
@@ -253,7 +266,8 @@ var TableInit = function () {
                                 '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="'].join('');// , value, '"'].join('');
 
                     //joinStr += (key == "Status" ? (dataBind.StatusName[value] + '" value="' + dataBind.StatusName[value] + '"') : (value + '" value="' + value + '"'));
-                    joinStr += (key == "Status" ? (dataBind.StatusName[value]) : (value)) + '"';
+                    joinStr += (key == "CreateTime" ? (changeDateFormat(value)) : (value)) + '"';
+
                     joinStr += ((key == "Id" || key == "CreateTime" || key == "CustomerIP") ? "disabled" : "") + '>  </div>';
                         //' </div>'].join('');
                 }

@@ -157,12 +157,12 @@ namespace OrderManagement.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var a= ModelState.Values.SelectMany(v => v.Errors).ToList();
+
+
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
-
-            // test update 
-            order.Id = "2016120600004";
-            
+ 
 
             bool succeed = false;
             if (OrderExists(order.Id))
