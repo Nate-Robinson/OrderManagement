@@ -12,6 +12,7 @@ using OrderManagement.Models;
 using System.Web.Script.Serialization;
 using System.Text;
 using System.Web;
+using OrderManagement.Common;
 
 namespace OrderManagement.Controllers
 {
@@ -31,7 +32,7 @@ namespace OrderManagement.Controllers
             }
             HttpResponseMessage result = new HttpResponseMessage { Content = new StringContent(str, Encoding.GetEncoding("UTF-8"), "application/json") };
             return result;
-        } 
+        }
     }
 
     public class OrdersController : ApiController
@@ -40,7 +41,7 @@ namespace OrderManagement.Controllers
 
         private const float ShoePrice = 199;
 
- 
+
         /// <summary>
         /// 检查IP地址格式
         /// </summary>
@@ -159,28 +160,154 @@ namespace OrderManagement.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
-            order.Id = db.GenerateOrderId().FirstOrDefault();
-            order.Address = order.Province + order.City + order.District + order.Address;
-            order.CustomerIP = GetIP4Address();   
-            order.Price = ShoePrice;
-            order.Status = ((int)OrderStatus.WaitForConfirm).ToString();
-            order.CreateTime = DateTime.Now;
-            db.Orders.Add(order);
+            // test update 
+            order.Id = "2016120600004";
             
-            try
+
+            bool succeed = false;
+            if (OrderExists(order.Id))
             {
-                db.SaveChanges();
+                succeed = UpdateOrder(order);
+            }
+            else
+            {
+                succeed = AddOrder(order);
+            }
+
+
+
+            if (succeed)
+            {
                 HttpResponseMessage response = Utity.toJson(order);
                 response.Headers.Add("Access-Control-Allow-Origin", "*");
                 response.Headers.Add("Access-Control-Allow-Methods", "POST");
                 response.Headers.Add("Access-Control-Allow-Headers", "x-requested-with,content-type");
                 return response;
             }
-
-            catch (Exception ex)
+            else
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
+
+        }
+
+        private bool UpdateOrder(Order order)
+        {
+            if (order.Id.IsNullOrEmpty())
+            {
+                return false;
+            }
+
+            Order dbOrder = db.Orders.Where(item => item.Id == order.Id).FirstOrDefault();
+            if (dbOrder == null)
+            {
+                return false;
+            }
+
+            #region 更新传入order的不为空的字段
+            if (!order.Address.IsNullOrEmpty())
+            {
+                dbOrder.Address = order.Address;
+            }
+
+            if (!order.CellPhone.IsNullOrEmpty())
+            {
+                dbOrder.CellPhone = order.CellPhone;
+            }
+            if (!order.City.IsNullOrEmpty())
+            {
+                dbOrder.City = order.City;
+            }
+            if (!order.Color.IsNullOrEmpty())
+            {
+                dbOrder.Color = order.Color;
+            }
+            if (order.CreateTime != null
+                &&order.CreateTime == DateTime.MinValue 
+                &&order.CreateTime == DateTime.MaxValue)
+            {
+                dbOrder.CreateTime = order.CreateTime;
+            }
+            if (!order.CustomerIP.IsNullOrEmpty())
+            {
+                dbOrder.CustomerIP = order.CustomerIP;
+            }
+            if (!order.District.IsNullOrEmpty())
+            {
+                dbOrder.District = order.District;
+            }
+            if (!order.LogisticsCode.IsNullOrEmpty())
+            {
+                dbOrder.LogisticsCode = order.LogisticsCode;
+            }
+            if (!order.LogisticsCompany.IsNullOrEmpty())
+            {
+                dbOrder.LogisticsCompany = order.LogisticsCompany;
+            }
+            if (!order.Message.IsNullOrEmpty())
+            {
+                dbOrder.Message = order.Message;
+            }
+            if (!order.Name.IsNullOrEmpty())
+            {
+                dbOrder.Name = order.Name;
+            }
+            if (order.Price != null)
+            {
+                dbOrder.Price = order.Price;
+            }
+            if (!order.Province.IsNullOrEmpty())
+            {
+                dbOrder.Province = order.Province;
+            }
+            if (order.Qty >0)
+            {
+                dbOrder.Qty = order.Qty;
+            }
+            if (!order.Remark.IsNullOrEmpty())
+            {
+                dbOrder.Remark = order.Remark;
+            }
+            if (order.ShoeSize >0)
+            {
+                dbOrder.ShoeSize = order.ShoeSize;
+            }
+            if (!order.Status.IsNullOrEmpty())
+            {
+                dbOrder.Status = order.Status;
+            }
+            if (order.TotalMoney >=0)
+            {
+                dbOrder.TotalMoney = order.TotalMoney;
+            }
+
+            #endregion
+
+            DbEntityEntry entry = db.Entry<Order>(dbOrder);
+            entry.State = EntityState.Modified;
+            int effectRows = db.SaveChanges();
+            if (effectRows < 1)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool AddOrder(Order order)
+        {
+            order.Id = db.GenerateOrderId().FirstOrDefault();
+            order.Address = order.Province + order.City + order.District + order.Address;
+            order.CustomerIP = GetIP4Address();
+            order.Price = ShoePrice;
+            order.Status = ((int)OrderStatus.WaitForConfirm).ToString();
+            order.CreateTime = DateTime.Now;
+            db.Orders.Add(order);
+            int effectRows = db.SaveChanges();
+            if (effectRows < 1)
+            {
+                return false;
+            }
+            return true;
         }
 
         // DELETE: api/Orders/5
