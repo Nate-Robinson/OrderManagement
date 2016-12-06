@@ -40,15 +40,7 @@ namespace OrderManagement.Controllers
 
         private const float ShoePrice = 199;
 
-        // GET: api/Orders
-        //public List<Order> GetOrders()
-        //{
-        //    var orders = from o in db.Orders
-        //                 //where o
-        //                 select o;
-
-        //    return db.Orders.ToList();
-        //}
+ 
         /// <summary>
         /// 检查IP地址格式
         /// </summary>
