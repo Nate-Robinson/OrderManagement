@@ -1,7 +1,6 @@
 ﻿
 // 1. 页面初始化
 $(function () {
-
     //1.初始化Table
     var oTable = new TableInit();
     oTable.Init();
@@ -11,32 +10,72 @@ $(function () {
     oButtonInit.Init();
 });
 
+var dataBind = {};
+dataBind.fieldName = {
+    Id: "订单号",
+    Color: "颜色",
+    ShoeSize: "鞋码",
+    Qty: "数量",
+    Name: "姓名",
+    CellPhone: "电话",
+    Address: "地址",
+    TotalMoney: "总价",
+    Message: "买家留言",
+    CreateTime: "下单时间",
+    LogisticsCompany: "物流公司",
+    LogisticsCode: "物流单号",
+    Price: "单价",
+    Province: "省份",
+    City: "城市",
+    District: "地区",
+    CustomerIP: "IP",
+    Status: "订单状态",
+    Remark: "备注"
+}
 
-
+dataBind.StatusName = {
+    1: "等待确认",
+    2: "确认假单",
+    3: "等待发货",
+    4: "已经发货",
+    5: "已经签收",
+    6: "已经退货"
+}
 
 var TableInit = function () {
     var oTableInit = new Object();
 
-    oTableInit.fieldName = {
-        Id : "订单号",
-        Color: "颜色",
-        ShoeSize: "鞋码",
-        Qty: "数量",
-        Name: "姓名",
-        CellPhone: "电话",
-        Adress: "地址",
-        TotalMoney: "总价",
-        Message: "买家留言",
-        CreateTime: "下单时间",
-        LogisticsCompany: "物流公司",
-        LogisticsCode: "物流单号",
-        Price: "单价",
-        Province: "省份",
-        City: "城市",
-        District: "地区",
-        CustomerIP: "IP",
-        Status: "订单状态"
-    }
+    //oTableInit.fieldName = {
+    //    Id : "订单号",
+    //    Color: "颜色",
+    //    ShoeSize: "鞋码",
+    //    Qty: "数量",
+    //    Name: "姓名",
+    //    CellPhone: "电话",
+    //    Address: "地址",
+    //    TotalMoney: "总价",
+    //    Message: "买家留言",
+    //    CreateTime: "下单时间",
+    //    LogisticsCompany: "物流公司",
+    //    LogisticsCode: "物流单号",
+    //    Price: "单价",
+    //    Province: "省份",
+    //    City: "城市",
+    //    District: "地区",
+    //    CustomerIP: "IP",
+    //    Status: "订单状态",
+    //    Remark: "备注"
+    //}
+
+
+    //oTableInit.StatusName =   {
+    //    1: "等待确认" ,
+    //    2: "确认假单" ,
+    //    3: "等待发货" ,
+    //    4: "已经发货" ,
+    //    5: "已经签收" ,
+    //    6: "已经退货" 
+    //}
 
     //初始化Table
     oTableInit.Init = function () {
@@ -66,64 +105,60 @@ var TableInit = function () {
             cardView: false,                    //是否显示详细视图
             detailView: false,                  //是否显示父子表
             columns: [{
-                checkbox: true,
-                align: 'center',
-                valign: 'middle',
-            }, {
                 field: 'Id',
-                title: oTableInit.fieldName['Id'],
+                title: dataBind.fieldName['Id'],
                 sortable: true,                       // 不排序的话设置固定高度则行宽度对不齐 
                 align: 'center',
                 valign: 'middle',
             }, {
                 field: 'Color',
-                title: oTableInit.fieldName['Color'],
+                title: dataBind.fieldName['Color'],
                 align: 'center',
                 valign: 'middle',
                 sortable: true,
                 // visible: false   // 控制当前列是否显示
             }, {
                 field: 'ShoeSize',
-                title: oTableInit.fieldName['ShoeSize'],
+                title: dataBind.fieldName['ShoeSize'],
                 align: 'center',
                 valign: 'middle',
                 sortable: true,
             }, {
                 field: 'Qty',
-                title: oTableInit.fieldName['Qty'],
+                title: dataBind.fieldName['Qty'],
                 align: 'center',
                 valign: 'middle',
                 sortable: true,
             }, {
                 field: 'TotalMoney',
-                title: oTableInit.fieldName['TotalMoney'],
+                title: dataBind.fieldName['TotalMoney'],
                 align: 'center',
                 valign: 'middle',
                 sortable: true,
             }, {
                 field: 'Name',
-                title: oTableInit.fieldName['Name'],
+                title: dataBind.fieldName['Name'],
                 sortable: true,
                 align: 'center',
                 valign: 'middle',
             }, {
                 field: 'CellPhone',
-                title: oTableInit.fieldName['CellPhone'],
+                title: dataBind.fieldName['CellPhone'],
                 sortable: true,
                 valign: 'middle',
             }, {
                 field: 'Address',
-                title: oTableInit.fieldName['Adress'],
+                title: dataBind.fieldName['Address'],
                 sortable: true,
             }, {
                 field: 'Status',
-                title: oTableInit.fieldName['Status'],
+                title: dataBind.fieldName['Status'],
                 sortable: true,
                 align: 'center',
                 valign: 'middle',
                 editable: {
                     type: 'select',
-                    title: oTableInit.fieldName['Status'],
+                    title: dataBind.fieldName['Status'],
                     source: [
                         { value: "1", text: "等待确认" },
                         { value: "2", text: "确认假单" },
@@ -135,21 +170,26 @@ var TableInit = function () {
                 }
             }, {
                 field: 'CreateTime',
-                title: oTableInit.fieldName['CreateTime'],
+                title: dataBind.fieldName['CreateTime'],
                 sortable: true,
             }, {
                 field: 'LogisticsCompany',
-                title: oTableInit.fieldName['LogisticsCompany'],
+                title: dataBind.fieldName['LogisticsCompany'],
                 sortable: true,
             }, {
                 field: 'LogisticsCode',
-                title: oTableInit.fieldName['LogisticsCode'],
+                title: dataBind.fieldName['LogisticsCode'],
                 sortable: true,
             }, {
                 field: 'CustomerIP',
-                title: oTableInit.fieldName['CustomerIP'],
+                title: dataBind.fieldName['CustomerIP'],
                 sortable: true,
-                visible: false,
+                visible: true,
+            }, {
+                field: 'Remark',
+                title: dataBind.fieldName['Remark'],
+                sortable: true,
+                visible: true,
             }, {
                 field: 'operate',
                 title: '操作',
@@ -204,13 +244,18 @@ var TableInit = function () {
                 alert("不能获取选中行，请重新选择！")
             }
             var joinStr = "";
-            $.each(row, function (key,value) {
-                if (key != "0") {
+            $.each(row, function (key, value) {
+                if (key == "0" || key == "Province" || key == "City" || key == "District") {
+                } else {
                     joinStr +=
                        ['<div class="form-group">',
-                                '<label for="txt_', key, '">', oTableInit.fieldName[key], '</label>',
-                                '<input type="text" name="txt_',key, '" class="form-control" id="txt_' + key, '" placeholder="',value,'">',
-                        ' </div>'].join('');
+                                '<label for="txt_', key, '">', dataBind.fieldName[key], '</label>',
+                                '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="'].join('');// , value, '"'].join('');
+
+                    //joinStr += (key == "Status" ? (dataBind.StatusName[value] + '" value="' + dataBind.StatusName[value] + '"') : (value + '" value="' + value + '"'));
+                    joinStr += (key == "Status" ? (dataBind.StatusName[value]) : (value)) + '"';
+                    joinStr += ((key == "Id" || key == "CreateTime" || key == "CustomerIP") ? "disabled" : "") + '>  </div>';
+                        //' </div>'].join('');
                 }
             });
             $("#appendModel")[0].innerHTML = joinStr;
@@ -240,7 +285,6 @@ var TableInit = function () {
     };
     return oTableInit;
 };
-
 
 var ButtonInit = function () {
     var oInit = new Object();
@@ -291,7 +335,7 @@ var ButtonInit = function () {
                 $.ajax({
                     type: "post",
                     url: "/Home/Delete",
-                    data: { "": JSON.stringify(arrselections) },
+                    data: { "":JSON.stringify(arrselections) },
                     success: function (data, status) {
                         if (status == "success") {
                             toastr.success('提交数据成功');
@@ -310,14 +354,22 @@ var ButtonInit = function () {
         });
 
         $("#btn_submit").click(function () {
-            postdata.DEPARTMENT_NAME = $("#txt_departmentname").val();
-            postdata.PARENT_ID = $("#txt_parentdepartment").val();
-            postdata.DEPARTMENT_LEVEL = $("#txt_departmentlevel").val();
-            postdata.STATUS = $("#txt_statu").val();
+            //postdata.DEPARTMENT_NAME = $("#txt_departmentname").val();
+            //postdata.PARENT_ID = $("#txt_parentdepartment").val();
+            //postdata.DEPARTMENT_LEVEL = $("#txt_departmentlevel").val();
+            //postdata.STATUS = $("#txt_statu").val();
+
+
+            //oTableInit.fieldName[""]
+
+            $.each(dataBind.fieldName, function (key, value) {
+                postdata[key] = $("#txt_" + key).val();
+            });
+
             $.ajax({
                 type: "post",
-                url: "/Home/GetEdit",
-                data: { "": JSON.stringify(postdata) },
+                url: "/api/Orders/PostOrders",
+                data:postdata ,
                 success: function (data, status) {
                     if (status == "success") {
                         toastr.success('提交数据成功');
