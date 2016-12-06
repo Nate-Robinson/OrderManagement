@@ -17,7 +17,12 @@
             <div class="panel-body">
                 <div class="dataTable_wrapper">
                     <div id="toolbar">
-                        <span class="text-info" style="font-size:30px">账号管理</span>
+                        <!--<span class="text-info" style="font-size:30px">账号管理</span>-->
+                        <div id="toolbar" class="btn-group">
+                            <button id="btn_addUser" type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                            </button>
+                        </div>
                     </div>
                     <table id="tb_userinfo" data-reorderable-columns="true"></table>
                 </div>
@@ -28,3 +33,54 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+
+
+<form>
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">增加用户</h4>
+                </div>
+                <div class="modal-body" id="appendModel">
+                    <div class="form-group">
+                        <label for="txt_UserName">用户名</label>
+                        <input type="text" name="txt_UserName" class="form-control" id="txt_UserName" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_Account">登录账号</label>
+                        <input type="text" name="txt_Account" class="form-control" id="txt_Account" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label>用户角色</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked> 普通用户
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2"> 管理员
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_PassWord">密码</label>
+                        <input type="text" name="txt_PassWord" class="form-control" id="txt_PassWord" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_ConfirmPassWord">确认密码</label>
+                        <input type="text" name="txt_ConfirmPassWord" class="form-control" id="txt_ConfirmPassWord" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_Remark">备注</label>
+                        <input type="text" name="txt_Remark" class="form-control" id="txt_Remark" placeholder="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

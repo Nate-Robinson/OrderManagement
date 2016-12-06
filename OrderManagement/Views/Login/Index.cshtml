@@ -1,10 +1,10 @@
 ﻿@{
     Layout = null;
 }
-@*@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/bootstrap")
 <script src="~/Scripts/bootstrapValidator.js"></script>
-<link href="~/Content/bootstrapValidator.css" rel="stylesheet" />*@
+<link href="~/Content/bootstrapValidator.css" rel="stylesheet" />
 
 @model OrderManagement.Models.LogOnModel
 @using (Html.BeginForm("Login", "Login", FormMethod.Post))
