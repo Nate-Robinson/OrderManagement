@@ -45,41 +45,9 @@ dataBind.StatusName = {
 var TableInit = function () {
     var oTableInit = new Object();
 
-    //oTableInit.fieldName = {
-    //    Id : "订单号",
-    //    Color: "颜色",
-    //    ShoeSize: "鞋码",
-    //    Qty: "数量",
-    //    Name: "姓名",
-    //    CellPhone: "电话",
-    //    Address: "地址",
-    //    TotalMoney: "总价",
-    //    Message: "买家留言",
-    //    CreateTime: "下单时间",
-    //    LogisticsCompany: "物流公司",
-    //    LogisticsCode: "物流单号",
-    //    Price: "单价",
-    //    Province: "省份",
-    //    City: "城市",
-    //    District: "地区",
-    //    CustomerIP: "IP",
-    //    Status: "订单状态",
-    //    Remark: "备注"
-    //}
-
-
-    //oTableInit.StatusName =   {
-    //    1: "等待确认" ,
-    //    2: "确认假单" ,
-    //    3: "等待发货" ,
-    //    4: "已经发货" ,
-    //    5: "已经签收" ,
-    //    6: "已经退货" 
-    //}
-
     //初始化Table
     oTableInit.Init = function () {
-        $('#tb_departments').bootstrapTable({
+        $('#tb_orders').bootstrapTable({
             url: '/Home/GetOrder',              //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
@@ -300,7 +268,7 @@ var ButtonInit = function () {
         });
 
         $("#btn_edit").click(function () {
-            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            var arrselections = $("#tb_orders").bootstrapTable('getSelections');
             if (arrselections.length > 1) {
                 toastr.warning('只能选择一行进行编辑');
 
@@ -322,7 +290,7 @@ var ButtonInit = function () {
         });
 
         $("#btn_delete").click(function () {
-            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            var arrselections = $("#tb_orders").bootstrapTable('getSelections');
             if (arrselections.length <= 0) {
                 toastr.warning('请选择有效数据');
                 return;
@@ -339,7 +307,7 @@ var ButtonInit = function () {
                     success: function (data, status) {
                         if (status == "success") {
                             toastr.success('提交数据成功');
-                            $("#tb_departments").bootstrapTable('refresh');
+                            $("#tb_orders").bootstrapTable('refresh');
                         }
                     },
                     error: function () {
@@ -365,7 +333,7 @@ var ButtonInit = function () {
                 success: function (data, status) {
                     if (status == "success") {
                         toastr.success('提交数据成功');
-                        $("#tb_departments").bootstrapTable('refresh');
+                        $("#tb_orders").bootstrapTable('refresh');
                     }
                 },
                 error: function () {
@@ -379,7 +347,7 @@ var ButtonInit = function () {
         });
 
         $("#btn_query").click(function () {
-            $("#tb_departments").bootstrapTable('refresh');
+            $("#tb_orders").bootstrapTable('refresh');
         });
     };
 

@@ -21,6 +21,7 @@ namespace OrderManagement
             // 3. bootstrap 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                                     "~/bower_components/bootstrap/dist/js/bootstrap.min.js",
+                                    "~/Scripts/toastr.min.js",
                                     "~/Scripts/respond.js"));
 
             // 4. bootstrap-table
@@ -39,7 +40,8 @@ namespace OrderManagement
                       "~/bower_components/bootstrap-table/bootstrap-table.min.css",
                       "~/bower_components/metisMenu/dist/metisMenu.min.css",
                       "~/Content/timeline.css",
-                      "~/Content/sb-admin-2.css"));
+                      "~/Content/sb-admin-2.css",
+                      "~/Content/toastr.min.css"));
         }
     }
 }

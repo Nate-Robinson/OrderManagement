@@ -352,3 +352,11 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+
+.toast-center-center {
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -150px;
+}

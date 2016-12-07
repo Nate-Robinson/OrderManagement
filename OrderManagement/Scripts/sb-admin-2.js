@@ -80,6 +80,8 @@ $(function() {
 
 
 (function ($) {
+    toastr.options.positionClass = 'toast-center-center';
+
     window.Ewin = function () {
         var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
               '<div class="modal-dialog modal-sm">' +
