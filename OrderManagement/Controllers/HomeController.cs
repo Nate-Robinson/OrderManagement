@@ -96,8 +96,6 @@ namespace OrderManagement.Controllers
         public JsonResult GetOrder(queryParam queryParams)
         {
             OrderManageDbContext db = new OrderManageDbContext();
-           
-
             DbSet<Order> data = db.Orders;
             List<Order> dataRows = null;
            
@@ -110,8 +108,6 @@ namespace OrderManagement.Controllers
             {
                 dataRows = data.ToList();
             }
-              
-
             var total = dataRows.Count;
             var rows = dataRows.Skip(queryParams.offset).Take(queryParams.limit).ToList();
             return Json(new { total = total, rows = rows }, JsonRequestBehavior.AllowGet);

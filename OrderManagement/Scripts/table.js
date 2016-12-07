@@ -169,29 +169,35 @@ var TableInit = function () {
                 formatter: operateFormatter,
                 events: operateEvents
             }],
+            // 修改订单状态
             onEditableSave: function (field, row, oldValue, $el) {
-                $.ajax({
-                    type: "post",
-                    url: "/Home/GetOrder",
-                    data: row,
-                    dataType: 'JSON',
-                    success: function (data, status) {
-                        if (status == "success") {
-                            alert('提交数据成功');
+                if (field == "Status" && row["Status"] > 0 && row["Status"] < 7) {
+                    oldValue = $el[0].innerHTML;
+                    $.ajax({
+                        type: "post",
+                        url: "api/Orders/UpdateOrderStatus",
+                        data: row["Status"],
+                        dataType: 'JSON',
+                        success: function (data, status) {
+                            if (status == "success") {
+                                toastr.success('修改订单状态成功！');
+                            }
+                        },
+                        error: function () {
+                            $el[0].innerHTML = oldValue;
+                            toastr.error('修改订单状态失败！');
+                        },
+                        complete: function () {
                         }
-                    },
-                    error: function () {
-                        alert('编辑失败');
-                    },
-                    complete: function () {
-
-                    }
-
-                });
+                    });
+                } else {
+                    toastr.warning("选择数据有误，请选择订单状态编辑")
+                }
             }
         });
     };
 
+    // 日期格式初始化
     function changeDateFormat(cellval) {
         if (cellval != null) {
             var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
@@ -204,6 +210,7 @@ var TableInit = function () {
         }
     }
 
+    // 表格内添加编辑删除按钮
     function operateFormatter(value, row, index) {
         return [
                             '<a class="edit btn btn-xs btn-default" style="margin-left:5px" href="javascript:void(0)" title="编辑">',
@@ -215,10 +222,9 @@ var TableInit = function () {
         ].join('');
     }
 
+    // 绑定按钮事件
     window.operateEvents = {
-        //'click .like': function (e, value, row, index) {
-        //    alert(row.id);
-        //},
+        // 编辑按钮弹出框
         'click .edit': function (e, value, row, index) {
             if (row == null || typeof row == 'undefine')
             {
@@ -231,23 +237,42 @@ var TableInit = function () {
                     joinStr +=
                        ['<div class="form-group">',
                                 '<label for="txt_', key, '">', dataBind.fieldName[key], '</label>',
-                                '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="', value,'"'].join('');// , value, '"'].join('');
-
+                                '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="'].join('');
                     //joinStr += (key == "Status" ? (dataBind.StatusName[value] + '" value="' + dataBind.StatusName[value] + '"') : (value + '" value="' + value + '"'));
                     joinStr += (key == "CreateTime" ? (changeDateFormat(value)) : (value)) + '"';
-
                     joinStr += ((key == "Id" || key == "CreateTime" || key == "CustomerIP") ? "disabled" : "") + '>  </div>';
-                        //' </div>'].join('');
                 }
             });
             $("#appendModel")[0].innerHTML = joinStr;
             $('#popupModal').modal();
         },
+        //删除按钮弹出框
         'click .remove': function (e, value, row, index) {
-            mif.showQueryMessageBox("将删除本条记录，是否确认删除？", function () {
-                var url = '@Url.Content("~/Welcome/DeleteRecord/")' + row.id + '?rnd=' + Math.random();
-                mif.ajax(url, null, afterDelete);
-            });
+            //var arrselections = $("#tb_orders").bootstrapTable('getSelections');
+            //if (arrselections.length <= 0) {
+            //    toastr.warning('请选择有效数据');
+            //    return;
+            //}
+
+            Ewin.confirm({ message: "确认要删除 " + index + " 号订单吗？" }).on(function (e) {
+                if (!e) {
+                    return;
+                }
+                $.ajax({
+                    type: "delete",
+                    url: "api/Orders/DeleteOrder",
+                    data: index,
+                    success: function (data, status) {
+                        if (status == "success") {
+                            toastr.success('删除订单成功！');
+                            $("#tb_orders").bootstrapTable('refresh');
+                        }
+                    },
+                    error: function () {
+                        toastr.error('删除订单失败！');
+                    }
+                });
+            });         
         }
     };
 
@@ -320,12 +345,12 @@ var ButtonInit = function () {
                     data: { "":JSON.stringify(arrselections) },
                     success: function (data, status) {
                         if (status == "success") {
-                            toastr.success('提交数据成功');
+                            toastr.success('删除数据成功！');
                             $("#tb_orders").bootstrapTable('refresh');
                         }
                     },
                     error: function () {
-                        toastr.error('Error');
+                        toastr.error("删除数据失败！");
                     },
                     complete: function () {
 
@@ -346,12 +371,12 @@ var ButtonInit = function () {
                 data:postdata ,
                 success: function (data, status) {
                     if (status == "success") {
-                        toastr.success('提交数据成功');
+                        toastr.success('修改订单成功');
                         $("#tb_orders").bootstrapTable('refresh');
                     }
                 },
                 error: function () {
-                    toastr.error('Error');
+                    toastr.error('修改订单失败！');
                 },
                 complete: function () {
 
