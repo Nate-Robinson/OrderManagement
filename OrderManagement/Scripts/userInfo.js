@@ -11,25 +11,24 @@ $(function () {
     userButtonInit.Init();
 });
 
+var userTableInit = new Object();
 
-
+userTableInit.fieldName = {
+    Id: "账户ID",
+    UserName: "用户名",
+    PassWord: "密码",
+    UserLevel: "用户身份",
+    Account: "登录账号",
+    Remark: "备注"
+}
 
 var TableInitUser = function () {
-    var userTableInit = new Object();
-
-    userTableInit.fieldName = {
-        Id: "账户ID",
-        UserName: "用户名",
-        PassWord: "密码",
-        UserLevel: "用户身份",
-        Account: "登录账号",
-        Remark: "备注"
-    }
+   
 
     //初始化Table
     userTableInit.Init = function () {
         $('#tb_userinfo').bootstrapTable({
-            url: '/Home/GetUserInfo',              //请求后台的URL（*）
+            url: '/api/Users',              //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
             striped: true,                      //是否显示行间隔色
@@ -267,22 +266,43 @@ var ButtonInit = function () {
         });
 
         $("#btn_submit").click(function () {
-            postdata.DEPARTMENT_NAME = $("#txt_departmentname").val();
-            postdata.PARENT_ID = $("#txt_parentdepartment").val();
-            postdata.DEPARTMENT_LEVEL = $("#txt_departmentlevel").val();
-            postdata.STATUS = $("#txt_statu").val();
+            $.each(userTableInit.fieldName, function (key, value) {
+                postdata[key] = $("#txt_" + key).val();
+            });
+
+            // 验证
+            if (postdata["UserName"] == "") {
+                toastr.error("用户名不能为空");
+                return;
+            }
+
+            if (postdata["Account"] == "")
+            {                
+                toastr.error("登录账号不能为空\n建议使用手机号作为登录账号");
+                return;
+            }
+
+            if (postdata["PassWord"] == "") {
+                toastr.error("密码不能为空");
+                return;
+            }
+            if (postdata["PassWord"] != $("#txt_ConfirmPassWord").val() ){
+                toastr.error("两次输入密码不一致，请重新输入");
+                return;
+            }
+
             $.ajax({
                 type: "post",
-                url: "/Home/GetEdit",
-                data: { "": JSON.stringify(postdata) },
+                url: "/api/Users",
+                data: postdata,
                 success: function (data, status) {
-                    if (status == "success") {
+                    if (status == "success") {                      
                         toastr.success('提交数据成功');
                         $("#tb_departments").bootstrapTable('refresh');
                     }
                 },
-                error: function () {
-                    toastr.error('Error');
+                error: function (data) {
+                    toastr.error(data.responseText);
                 },
                 complete: function () {
 

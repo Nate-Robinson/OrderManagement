@@ -124,17 +124,19 @@ namespace OrderManagement.Controllers
             {
                 return BadRequest();
             }
+                       
 
             Order dbOrder = db.Orders.Find(order.Id);
+            dbOrder.Status = order.Status;
             DbEntityEntry entry = db.Entry<Order>(dbOrder);
-            entry.State = EntityState.Modified;            
-            int effect  = db.SaveChanges();            
+            entry.State = EntityState.Modified;
+            int effect = db.SaveChanges();            
             if (effect<1)
             {
                 return InternalServerError();
             }
-            
-            return Ok(order);
+
+            return Ok(dbOrder);
         }
 
         // POST: api/Orders
