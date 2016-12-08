@@ -14,7 +14,7 @@ namespace OrderManagement.Domain
             menu.Add(new Navbar { Id = 1, nameOption = "订单列表", controller = "Home", action = "Index", imageClass = "fa fa-user fa-fw", status = true, isParent = false, parentId = 0 });
             menu.Add(new Navbar { Id = 5, nameOption = "账号管理", controller = "Home", action = "Tables", imageClass = "fa fa-list fa-fw", status = true, isParent = false, parentId = 0 });
             menu.Add(new Navbar { Id = 1, nameOption = "修改密码", controller = "Home", action = "Forms", imageClass = "fa fa-key fa-fw", status = true, isParent = false, parentId = 0 });
-            menu.Add(new Navbar { Id = 18, nameOption = "退出登录", controller = "Login", action = "Index", imageClass = "fa fa-sign-in fa-fw", status = true, isParent = false, parentId = 0 });
+            menu.Add(new Navbar { Id = 18, nameOption = "退出登录", controller = "Login", action = "Logout", imageClass = "fa fa-sign-in fa-fw", status = true, isParent = false, parentId = 0 });
 
             //menu.Add(new Navbar { Id = 1, nameOption = "Dashboard", controller = "Home", action = "Index", imageClass = "fa fa-dashboard fa-fw", status = true, isParent = false, parentId = 0 });
             //menu.Add(new Navbar { Id = 2, nameOption = "Charts", imageClass = "fa fa-bar-chart-o fa-fw", status = true, isParent = true, parentId = 0 });
