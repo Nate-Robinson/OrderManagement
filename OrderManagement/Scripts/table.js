@@ -45,41 +45,9 @@ dataBind.StatusName = {
 var TableInit = function () {
     var oTableInit = new Object();
 
-    //oTableInit.fieldName = {
-    //    Id : "订单号",
-    //    Color: "颜色",
-    //    ShoeSize: "鞋码",
-    //    Qty: "数量",
-    //    Name: "姓名",
-    //    CellPhone: "电话",
-    //    Address: "地址",
-    //    TotalMoney: "总价",
-    //    Message: "买家留言",
-    //    CreateTime: "下单时间",
-    //    LogisticsCompany: "物流公司",
-    //    LogisticsCode: "物流单号",
-    //    Price: "单价",
-    //    Province: "省份",
-    //    City: "城市",
-    //    District: "地区",
-    //    CustomerIP: "IP",
-    //    Status: "订单状态",
-    //    Remark: "备注"
-    //}
-
-
-    //oTableInit.StatusName =   {
-    //    1: "等待确认" ,
-    //    2: "确认假单" ,
-    //    3: "等待发货" ,
-    //    4: "已经发货" ,
-    //    5: "已经签收" ,
-    //    6: "已经退货" 
-    //}
-
     //初始化Table
     oTableInit.Init = function () {
-        $('#tb_departments').bootstrapTable({
+        $('#tb_orders').bootstrapTable({
             url: '/Home/GetOrder',              //请求后台的URL（*）
             method: 'get',                      //请求方式（*）
             toolbar: '#toolbar',                //工具按钮用哪个容器
@@ -201,29 +169,35 @@ var TableInit = function () {
                 formatter: operateFormatter,
                 events: operateEvents
             }],
+            // 修改订单状态
             onEditableSave: function (field, row, oldValue, $el) {
-                $.ajax({
-                    type: "post",
-                    url: "/Home/GetOrder",
-                    data: row,
-                    dataType: 'JSON',
-                    success: function (data, status) {
-                        if (status == "success") {
-                            alert('提交数据成功');
+                if (field == "Status" && row["Status"] > 0 && row["Status"] < 7) {
+                    oldValue = $el[0].innerHTML;
+                    $.ajax({
+                        type: "post",
+                        url: "api/Orders/UpdateOrderStatus",
+                        data: row["Status"],
+                        dataType: 'JSON',
+                        success: function (data, status) {
+                            if (status == "success") {
+                                toastr.success('修改订单状态成功！');
+                            }
+                        },
+                        error: function () {
+                            $el[0].innerHTML = oldValue;
+                            toastr.error('修改订单状态失败！');
+                        },
+                        complete: function () {
                         }
-                    },
-                    error: function () {
-                        alert('编辑失败');
-                    },
-                    complete: function () {
-
-                    }
-
-                });
+                    });
+                } else {
+                    toastr.warning("选择数据有误，请选择订单状态编辑")
+                }
             }
         });
     };
 
+    // 日期格式初始化
     function changeDateFormat(cellval) {
         if (cellval != null) {
             var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
@@ -236,6 +210,7 @@ var TableInit = function () {
         }
     }
 
+    // 表格内添加编辑删除按钮
     function operateFormatter(value, row, index) {
         return [
                             '<a class="edit btn btn-xs btn-default" style="margin-left:5px" href="javascript:void(0)" title="编辑">',
@@ -247,10 +222,9 @@ var TableInit = function () {
         ].join('');
     }
 
+    // 绑定按钮事件
     window.operateEvents = {
-        //'click .like': function (e, value, row, index) {
-        //    alert(row.id);
-        //},
+        // 编辑按钮弹出框
         'click .edit': function (e, value, row, index) {
             if (row == null || typeof row == 'undefine')
             {
@@ -258,27 +232,47 @@ var TableInit = function () {
             }
             var joinStr = "";
             $.each(row, function (key, value) {
-                if (key == "0" || key == "Province" || key == "City" || key == "District" || key == "Status") {              
+                if (key == "0" || key == "Province" || key == "City" || key == "District" || key == "Status") {
                 } else {
                     joinStr +=
                        ['<div class="form-group">',
                                 '<label for="txt_', key, '">', dataBind.fieldName[key], '</label>',
-                                '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="', value,'"'].join('');// , value, '"'].join('');
-
+                                '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="'].join('');
                     //joinStr += (key == "Status" ? (dataBind.StatusName[value] + '" value="' + dataBind.StatusName[value] + '"') : (value + '" value="' + value + '"'));
                     joinStr += (key == "CreateTime" ? (changeDateFormat(value)) : (value)) + '"';
                     joinStr += ((key == "Id" || key == "CreateTime" || key == "CustomerIP") ? "disabled" : "") + '>  </div>';
-                        //' </div>'].join('');
                 }
             });
             $("#appendModel")[0].innerHTML = joinStr;
             $('#popupModal').modal();
         },
+        //删除按钮弹出框
         'click .remove': function (e, value, row, index) {
-            mif.showQueryMessageBox("将删除本条记录，是否确认删除？", function () {
-                var url = '@Url.Content("~/Welcome/DeleteRecord/")' + row.id + '?rnd=' + Math.random();
-                mif.ajax(url, null, afterDelete);
-            });
+            //var arrselections = $("#tb_orders").bootstrapTable('getSelections');
+            //if (arrselections.length <= 0) {
+            //    toastr.warning('请选择有效数据');
+            //    return;
+            //}
+
+            Ewin.confirm({ message: "确认要删除 " + row.Id + " 号订单吗？" }).on(function (e) {
+                if (!e) {
+                    return;
+                }
+                $.ajax({
+                    type: "delete",
+                    url: "api/Orders/" + row.Id,
+                    data: null,
+                    success: function (data, status) {
+                        if (status == "success") {
+                            toastr.success('删除订单成功！');
+                            $("#tb_orders").bootstrapTable('refresh');
+                        }
+                    },
+                    error: function () {
+                        toastr.error('删除订单失败！');
+                    }
+                });
+            });         
         }
     };
 
@@ -313,7 +307,7 @@ var ButtonInit = function () {
         });
 
         $("#btn_edit").click(function () {
-            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            var arrselections = $("#tb_orders").bootstrapTable('getSelections');
             if (arrselections.length > 1) {
                 toastr.warning('只能选择一行进行编辑');
 
@@ -335,7 +329,7 @@ var ButtonInit = function () {
         });
 
         $("#btn_delete").click(function () {
-            var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+            var arrselections = $("#tb_orders").bootstrapTable('getSelections');
             if (arrselections.length <= 0) {
                 toastr.warning('请选择有效数据');
                 return;
@@ -351,12 +345,12 @@ var ButtonInit = function () {
                     data: { "":JSON.stringify(arrselections) },
                     success: function (data, status) {
                         if (status == "success") {
-                            toastr.success('提交数据成功');
-                            $("#tb_departments").bootstrapTable('refresh');
+                            toastr.success('删除数据成功！');
+                            $("#tb_orders").bootstrapTable('refresh');
                         }
                     },
                     error: function () {
-                        toastr.error('Error');
+                        toastr.error("删除数据失败！");
                     },
                     complete: function () {
 
@@ -377,12 +371,12 @@ var ButtonInit = function () {
                 data:postdata ,
                 success: function (data, status) {
                     if (status == "success") {
-                        toastr.success('提交数据成功');
-                        $("#tb_departments").bootstrapTable('refresh');
+                        toastr.success('修改订单成功');
+                        $("#tb_orders").bootstrapTable('refresh');
                     }
                 },
                 error: function () {
-                    toastr.error('Error');
+                    toastr.error('修改订单失败！');
                 },
                 complete: function () {
 
@@ -392,7 +386,7 @@ var ButtonInit = function () {
         });
 
         $("#btn_query").click(function () {
-            $("#tb_departments").bootstrapTable('refresh');
+            $("#tb_orders").bootstrapTable('refresh');
         });
     };
 

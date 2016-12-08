@@ -158,12 +158,8 @@ namespace OrderManagement.Controllers
             if (!ModelState.IsValid)
             {
                 var a= ModelState.Values.SelectMany(v => v.Errors).ToList();
-
-
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
- 
-
             bool succeed = false;
             if (OrderExists(order.Id))
             {
@@ -173,8 +169,6 @@ namespace OrderManagement.Controllers
             {
                 succeed = AddOrder(order);
             }
-
-
 
             if (succeed)
             {
@@ -312,7 +306,7 @@ namespace OrderManagement.Controllers
 
         // DELETE: api/Orders/5
         [ResponseType(typeof(Order))]
-        public IHttpActionResult DeleteOrder(int id)
+        public IHttpActionResult DeleteOrder(string id)
         {
             Order order = db.Orders.Find(id);
             if (order == null)
