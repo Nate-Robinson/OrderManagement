@@ -7,7 +7,7 @@
 <link href="~/Content/bootstrapValidator.css" rel="stylesheet" />
 
 @model OrderManagement.Models.LogOnModel
-@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+@using (Html.BeginForm("StartLogin", "Login", FormMethod.Post))
 {
     @*@Html.TextBoxFor(m => m.UserName, new { @class = "balanceValue" })
     @Html.ValidationMessageFor(m => m.UserName, "请输入用户名！", new { style = "color: #f00" })
