@@ -174,9 +174,9 @@ var TableInit = function () {
                 if (field == "Status" && row["Status"] > 0 && row["Status"] < 7) {
                     oldValue = $el[0].innerHTML;
                     $.ajax({
-                        type: "post",
-                        url: "api/Orders/UpdateOrderStatus",
-                        data: row["Status"],
+                        type: "put",
+                        url: "api/Orders",
+                        data: row,
                         dataType: 'JSON',
                         success: function (data, status) {
                             if (status == "success") {

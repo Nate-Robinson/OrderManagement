@@ -117,38 +117,24 @@ namespace OrderManagement.Controllers
         }
 
         // PUT: api/Orders/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutOrder(string id, Order order)
+        [ResponseType(typeof(Order))]
+        public IHttpActionResult PutOrder(/*string id,*/ Order order)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != order.Id)
+            if (order.Id.IsNullOrEmpty() || order.Status.IsNullOrEmpty())
             {
                 return BadRequest();
             }
 
-            db.Entry(order).State = EntityState.Modified;
-
-            try
+            Order dbOrder = db.Orders.Find(order.Id);
+            DbEntityEntry entry = db.Entry<Order>(dbOrder);
+            entry.State = EntityState.Modified;            
+            int effect  = db.SaveChanges();            
+            if (effect<1)
             {
-                db.SaveChanges();
+                return InternalServerError();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            
+            return Ok(order);
         }
 
         // POST: api/Orders
