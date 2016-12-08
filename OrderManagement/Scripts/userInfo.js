@@ -302,7 +302,8 @@ var ButtonInit = function () {
                     }
                 },
                 error: function (data) {
-                    toastr.error(data.responseText);
+                    //JSON.stringify()
+                    toastr.error(JSON.parse(data.responseText).Message);
                 },
                 complete: function () {
 
