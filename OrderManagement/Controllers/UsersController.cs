@@ -12,6 +12,7 @@ using OrderManagement.Models;
 
 namespace OrderManagement.Controllers
 {
+    [Authorize]
     public class UsersController : ApiController
     {
         private OrderManageDbContext db = new OrderManageDbContext();
