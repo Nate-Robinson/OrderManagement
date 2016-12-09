@@ -23,7 +23,7 @@ userTableInit.fieldName = {
 }
 
 var TableInitUser = function () {
-   
+
 
     //初始化Table
     userTableInit.Init = function () {
@@ -69,13 +69,13 @@ var TableInitUser = function () {
                 title: userTableInit.fieldName['Account'],
                 align: 'center',
                 valign: 'middle',
-            },{
+            }, {
                 field: 'UserLevel',
                 title: userTableInit.fieldName['UserLevel'],
                 align: 'center',
                 valign: 'middle',
                 formatter: function (value, row, index) {
-                        var data = value == 1 ? "管理员" : "普通用户";
+                    var data = value == 1 ? "管理员" : "普通用户";
                     return data;
                 }
             }, {
@@ -89,15 +89,15 @@ var TableInitUser = function () {
             //    align: 'center',
             //    valign: 'middle',
               {
-                field: 'operate',
-                title: '操作',
-                width: 100,
-                align: 'center',
-                valign: 'middle',
-                //sortable: true,
-                formatter: operateFormatter,
-                events: operateEvents
-            }],
+                  field: 'operate',
+                  title: '操作',
+                  width: 100,
+                  align: 'center',
+                  valign: 'middle',
+                  //sortable: true,
+                  formatter: operateFormatter,
+                  events: operateEvents
+              }],
             onEditableSave: function (field, row, oldValue, $el) {
                 $.ajax({
                     type: "post",
@@ -121,6 +121,9 @@ var TableInitUser = function () {
         });
     };
 
+
+
+    // 表格内添加编辑删除按钮
     function operateFormatter(value, row, index) {
         return [
                             //'<a class="edit btn btn-xs btn-default" style="margin-left:5px" href="javascript:void(0)" title="编辑">',
@@ -132,53 +135,72 @@ var TableInitUser = function () {
         ].join('');
     }
 
+    // 绑定按钮事件
     window.operateEvents = {
-        //'click .like': function (e, value, row, index) {
-        //    alert(row.id);
-        ////},
+
+
+
+        //// 编辑按钮弹出框
         //'click .edit': function (e, value, row, index) {
         //    if (row == null || typeof row == 'undefine') {
         //        alert("不能获取选中行，请重新选择！")
         //    }
         //    var joinStr = "";
         //    $.each(row, function (key, value) {
-        //        if (key != "0") {
+        //        if (key == "0" || key == "Province" || key == "City" || key == "District" || key == "Status") {
+        //        } else {
         //            joinStr +=
         //               ['<div class="form-group">',
-        //                        '<label for="txt_', key, '">', userTableInit.fieldName[key], '</label>',
-        //                        '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" placeholder="', value, '">',
-        //                ' </div>'].join('');
+        //                        '<label for="txt_', key, '">', dataBind.fieldName[key], '</label>',
+        //                        '<input type="text" name="txt_', key, '" class="form-control" id="txt_' + key, '" value="'].join('');
+        //            //joinStr += (key == "Status" ? (dataBind.StatusName[value] + '" value="' + dataBind.StatusName[value] + '"') : (value + '" value="' + value + '"'));
+        //            joinStr += (key == "CreateTime" ? (changeDateFormat(value)) : (value)) + '"';
+        //            joinStr += ((key == "Id" || key == "CreateTime" || key == "CustomerIP") ? "disabled" : "") + '>  </div>';
         //        }
         //    });
         //    $("#appendModel")[0].innerHTML = joinStr;
         //    $('#popupModal').modal();
         //},
+
+
+
+
+
+
+        //删除按钮弹出框
         'click .remove': function (e, value, row, index) {
-            Ewin.confirm({ message: "确认要删除选择的用户吗？" }).on(function (e) {
+            //var arrselections = $("#tb_orders").bootstrapTable('getSelections');
+            //if (arrselections.length <= 0) {
+            //    toastr.warning('请选择有效数据');
+            //    return;
+            //}
+
+            Ewin.confirm({ message: "确认要删除用户 " + row.UserName + " 吗？" }).on(function (e) {
                 if (!e) {
                     return;
                 }
                 $.ajax({
-                    type: "post",
-                    url: "/Home/Delete",
-                    data: { "": JSON.stringify(arrselections) },
+                    type: "delete",
+                    url: "/api/users/" + row.Account,
+                    data: null,
                     success: function (data, status) {
                         if (status == "success") {
-                            toastr.success('提交数据成功');
-                            $("#tb_departments").bootstrapTable('refresh');
+                            toastr.success('删除用户成功！');
+                            $("#tb_userinfo").bootstrapTable('refresh');
                         }
                     },
                     error: function () {
-                        toastr.error('Error');
-                    },
-                    complete: function () {
-
+                        toastr.error('删除用户失败！');
                     }
-
                 });
             });
         }
     };
+
+
+
+
+
 
 
     //得到查询的参数
@@ -276,8 +298,7 @@ var ButtonInit = function () {
                 return;
             }
 
-            if (postdata["Account"] == "")
-            {                
+            if (postdata["Account"] == "") {
                 toastr.error("登录账号不能为空\n建议使用手机号作为登录账号");
                 return;
             }
@@ -286,7 +307,7 @@ var ButtonInit = function () {
                 toastr.error("密码不能为空");
                 return;
             }
-            if (postdata["PassWord"] != $("#txt_ConfirmPassWord").val() ){
+            if (postdata["PassWord"] != $("#txt_ConfirmPassWord").val()) {
                 toastr.error("两次输入密码不一致，请重新输入");
                 return;
             }
@@ -296,9 +317,9 @@ var ButtonInit = function () {
                 url: "/api/Users",
                 data: postdata,
                 success: function (data, status) {
-                    if (status == "success") {                      
+                    if (status == "success") {
                         toastr.success('提交数据成功');
-                        $("#tb_departments").bootstrapTable('refresh');
+                        $("#tb_userinfo").bootstrapTable('refresh');
                     }
                 },
                 error: function (data) {

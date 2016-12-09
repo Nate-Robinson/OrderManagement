@@ -93,9 +93,11 @@ namespace OrderManagement.Controllers
 
         // DELETE: api/Users/5
         [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(int id)
+        public IHttpActionResult DeleteUser(string id)
         {
-            User user = db.Users.Find(id);
+            // 根据路由配置，输入参数名必须为id, 实际表示的含义为用户登录账户
+
+            User user = db.Users.Where(item => item.Account ==id).First();
             if (user == null)
             {
                 return NotFound();
